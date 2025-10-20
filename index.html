@@ -1,31 +1,58 @@
 <!DOCTYPE HTML>
 
-<html>
+<html lang="en">
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Free online BPM tap tool and rhythm generator for Strudel. Tap beats to detect BPM and generate Strudel pattern sequences. Perfect for DJs, producers, and electronic music creation.">
+	<meta name="keywords" content="bpm, tap beat, tap rhythm, strudel rhythm, rhythm generator, strudel generator, tap strudel, beat detector, bpm counter, drum patterns, electronic music, DJ tools, step sequencer, pattern generator">
+	<meta name="author" content="Tap Rhythm Strudel">
+	<meta property="og:title" content="Tap Rhythm - Free BPM & Strudel Pattern Generator">
+	<meta property="og:description" content="Tap beats to detect BPM and generate Strudel rhythm patterns. Free online tool for DJs and music producers.">
+	<meta property="og:type" content="website">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Tap Rhythm - Free BPM & Strudel Pattern Generator">
+	<meta name="twitter:description" content="Tap beats to detect BPM and generate Strudel rhythm patterns. Free online tool for DJs and music producers.">
+
 	<script src="assets/js/rhythm.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="assets/css/rhythm.css">
 	<link rel="icon" type="image/png" href="images/rhythm/icon.png">
-	<title>Tap Rhythm - Strudel Pattern Generator</title>
+	<title>Free BPM Tap Tool & Strudel Rhythm Generator | Tap Beat to Generate Patterns</title>
 </head>
     <body>
-		<div class="row">
-			<h1>Tap Rhythm - Strudel Pattern Generator</h1>
-			<div class="tooltip">
-				<span class="tooltip-icon">?</span>
-				<div class="tooltip-content">
-					<strong>How to Use:</strong><br>
-					1. Record BPM: Click "Record BPM" and tap spacebar steadily<br>
-					2. Tap Rhythm: Click "Tap rhythm" and tap your pattern<br>
-					3. Copy Pattern: Use the copy button for your Strudel code
+		<header>
+			<div class="row">
+				<h1>Free BPM Tap Tool & Strudel Rhythm Generator</h1>
+				<div class="tooltip">
+					<span class="tooltip-icon">?</span>
+					<div class="tooltip-content">
+						<strong>How to Use This Beat Detector:</strong><br>
+						1. Record BPM: Tap spacebar to detect beats per minute<br>
+						2. Tap Rhythm: Create your drum pattern by tapping<br>
+						3. Copy Strudel Pattern: Get ready-to-use rhythm code
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row" style="margin-bottom: 2rem;">
-			<div class="box" id="bpm">1. Record BPM</div>
-			<div class="box" id="notate">2. Tap rhythm</div>
-		</div>
-		<div class="row" id="staff"></div>
+		</header>
+
+		<main>
+			<section aria-label="BPM Detection and Rhythm Input">
+				<h2 class="visually-hidden">Tap Beat to Generate BPM and Rhythm Patterns</h2>
+				<div class="row" style="margin-bottom: 2rem;">
+					<div class="box" id="bpm">1. Tap Beat to Record BPM</div>
+					<div class="box" id="notate">2. Tap Rhythm Pattern</div>
+				</div>
+			</section>
+
+			<section id="staff" aria-label="Step Sequencer and Strudel Pattern Output">
+				<h2 class="visually-hidden">Generated Step Sequencer and Strudel Code</h2>
+			</section>
+		</main>
+
+		<footer style="text-align: center; margin-top: 2rem; font-size: 0.8rem; color: #888;">
+			<p>Free online tool for DJs and music producers • Generate drum patterns for Strudel • BPM counter and beat detector</p>
+		</footer>
 
 	</body>
 </html>

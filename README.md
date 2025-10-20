@@ -1,6 +1,6 @@
-# Tap Rhythm - Strudel Pattern Generator
+# Free BPM Tap Tool & Strudel Rhythm Generator
 
-A web-based tool for recording rhythmic patterns and generating Strudel-style sequence notation. Perfect for DJs and electronic music producers working in dim lighting environments.
+A free online BPM detector and rhythm generator that converts tapped beats into Strudel pattern sequences. Perfect for DJs, electronic music producers, and beat makers working in any environment.
 
 ## Features
 
