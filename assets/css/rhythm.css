@@ -1,19 +1,23 @@
 html {
 	font-size: 1em;
 }
+
+/* Dark theme for DJ booth environment */
+body {
+	background-color: #1a1a1a;
+	color: #e0e0e0;
+	margin: 0;
+	padding: 0;
+}
+
 p, h1, .box, .note, #help, th {
 	font-family: 'Slabo 27px', serif;
 	font-size: 2rem;
 	text-align: center;
+	color: #e0e0e0;
 }
 .note {
 	font-size: 1rem;
-}
-tr:nth-child(1) {
-	background-color: #f2f2f2;
-}
-tr:nth-child(2) {
-	background-color: lightgrey;
 }
 th {
 	font-size: 1.2rem;
@@ -26,11 +30,14 @@ table {
 	align-items: center;
 	justify-content: center;
 	overflow: visible;
+	margin: 1rem 0; /* Reduced from default spacing */
 }
 #staff {
 	flex-wrap: wrap;
-	width: 40rem;
-	margin: 0 auto;
+	width: 100%;
+	max-width: 80rem;
+	margin: 1rem auto; /* Reduced margin */
+	text-align: center; /* Center the content */
 }
 .box {
 	display: flex;
@@ -39,20 +46,16 @@ table {
 	border-radius: 1rem;
 	width: 24rem;
 	height: 8rem;
-	background-color: salmon;
+	background-color: #2a2a2a;
+	border: 2px solid #444;
 	margin: 1rem;
 	cursor: pointer;
-	transition: background-color 0.2s;
+	transition: all 0.2s;
+	color: #e0e0e0;
 }
 .box:hover {
-	background-color: indianred;
-}
-#help {
-	position: fixed;
-	width: 8rem;
-	height: 4rem;
-	top: 0;
-	left: 0;
+	background-color: #3a3a3a;
+	border-color: #666;
 }
 #beat {
 	width: 4rem;
@@ -61,12 +64,38 @@ table {
 .ripple {
   width: 0.1em;
   height: 0.1em;
-  border-radius: 12rem;
   border-radius: 50%;
   animation: ripple 2s ease-out;
   position: fixed;
   top: 50vh;
   left: 50vw;
+  z-index: -1;
+}
+
+.ripple-beat {
+  width: 0.1em;
+  height: 0.1em;
+  border-radius: 50%;
+  animation: ripple-beat 1.5s ease-out;
+  position: fixed;
+  z-index: -1;
+}
+
+.ripple-tap {
+  width: 0.1em;
+  height: 0.1em;
+  border-radius: 50%;
+  animation: ripple-tap 1s ease-out;
+  position: fixed;
+  z-index: -1;
+}
+
+.ripple-too-fast {
+  width: 0.1em;
+  height: 0.1em;
+  border-radius: 50%;
+  animation: ripple-too-fast 0.8s ease-out;
+  position: fixed;
   z-index: -1;
 }
 
@@ -76,6 +105,33 @@ table {
   }
   100% {
     box-shadow: 0 0 0 50em rgba(150, 202, 255, 0);
+  }
+}
+
+@keyframes ripple-beat {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 30em rgba(0, 255, 136, 0);
+  }
+}
+
+@keyframes ripple-tap {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 0 25em rgba(255, 102, 0, 0);
+  }
+}
+
+@keyframes ripple-too-fast {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 0 20em rgba(255, 0, 0, 0);
   }
 }
 
@@ -93,63 +149,269 @@ table {
 .note:hover {
 	opacity: 0.8;
 }
-.modal:before {
-  content: '';
-  display: inline-block;
-  vertical-align: middle;
-  height: 100%;
+
+/* Step Sequencer Styles */
+#step-sequencer {
+	margin: 1rem auto; /* Reduced margin and center */
+	width: 100%;
+	max-width: 80rem;
+	display: inline-block; /* Center the sequencer */
 }
-.modal {
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: hidden;
+
+#step-sequencer h3 {
+	font-family: 'Slabo 27px', serif;
+	font-size: 1.5rem;
+	color: #333;
+	margin-bottom: 0.5rem; /* Reduced margin */
 	text-align: center;
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-	animation: fadeOut 0.4s;
-	animation-fill-mode: forwards;
 }
-.modal.active {
-	/*Animation */
-	animation: fadeIn 0.4s;
-	display: block;
-}
-/* Modal Content/Box */
-.modalContent {
-	/* Appearance */
-	display: inline-block;
-	vertical-align: middle;
-    background-color: white;
-	width: 80%;
-	height: auto;
-	margin: 0 auto; /* 15% from the top and centered */
-    padding: 1rem; /* Slightly less on top for the X */
-    border: 1px solid #888;
+
+.sequencer-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 1rem 0;
+	background-color: #2a2a2a;
 	border-radius: 0.5rem;
-	overflow: visible;
+	overflow: hidden;
+	border: 2px solid #444;
 }
-@keyframes fadeIn {
-	0% {
-		opacity: 0;
-	}
 
-	100% {
-		opacity: 1;
-	}
+.sequencer-table th {
+	background-color: #333;
+	color: #fff;
+	padding: 0.5rem;
+	font-size: 1rem;
+	border: 1px solid #444;
 }
-@keyframes fadeOut {
-	0% {
-		opacity: 1;
-	}
 
-	100% {
-		opacity: 0;
-	}
+.sequencer-table td {
+	padding: 0.5rem;
+	text-align: center;
+	border: 1px solid #444;
+	font-family: 'Slabo 27px', serif;
+	font-size: 1rem;
+	min-width: 2rem;
+	background-color: #2a2a2a;
 }
-.hidden {
-	display: none;
+
+/* Measure label column styling */
+.sequencer-table td:first-child {
+	background-color: #333 !important;
+	color: #fff !important;
+	font-weight: bold;
+	border-right: 2px solid #555;
+}
+
+.step-cell.active {
+	background-color: #00ff88;
+	color: #000;
+	font-weight: bold;
+}
+
+.step-cell.inactive {
+	background-color: #1a1a1a;
+	color: #666;
+	cursor: pointer;
+}
+
+.step-cell:hover {
+	opacity: 0.8;
+	transform: scale(1.05);
+	transition: all 0.1s ease;
+}
+
+th.beat-highlight {
+	background-color: #ffff00 !important;
+	color: #000 !important;
+}
+
+/* Rotation Controls */
+.rotate-controls {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.rotate-btn {
+	background-color: #2a2a2a;
+	color: #e0e0e0;
+	border: 2px solid #444;
+	border-radius: 0.5rem;
+	padding: 0.5rem 1rem;
+	font-size: 1.2rem;
+	cursor: pointer;
+	transition: all 0.2s;
+	font-family: 'Slabo 27px', serif;
+}
+
+.rotate-btn:hover {
+	background-color: #3a3a3a;
+	border-color: #666;
+	transform: translateY(-1px);
+}
+
+.rotate-btn:active {
+	transform: scale(0.95);
+}
+
+.rotate-label {
+	font-family: 'Slabo 27px', serif;
+	font-size: 1rem;
+	color: #e0e0e0;
+	text-align: center;
+}
+
+/* Strudel Pattern Styles */
+#strudel-pattern {
+	margin: 1rem auto; /* Reduced margin and center */
+	width: 100%;
+	max-width: 80rem;
+	display: inline-block; /* Center the pattern */
+}
+
+.strudel-header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	margin-bottom: 0.5rem; /* Reduced margin */
+}
+
+#strudel-pattern h3 {
+	font-family: 'Slabo 27px', serif;
+	font-size: 1.5rem;
+	color: #e0e0e0;
+	margin: 0; /* Remove margin, handled by flex container */
+}
+
+.pattern-box {
+	background-color: #2a2a2a;
+	border: 2px solid #444;
+	border-radius: 0.5rem;
+	padding: 1rem;
+	margin: 1rem 0;
+	font-family: 'Courier New', monospace;
+	width: 100%; /* Match step sequencer width */
+}
+
+.pattern-box pre {
+	margin: 0;
+	font-size: 1.2rem;
+	line-height: 1.6;
+	color: #e0e0e0;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+.copy-btn {
+	background-color: #00ff88;
+	color: #000;
+	border: 2px solid #00ff88;
+	padding: 0.8rem 1.5rem;
+	font-size: 1rem;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	font-family: 'Slabo 27px', serif;
+	transition: all 0.3s;
+	margin-top: 1rem;
+	font-weight: bold;
+}
+
+.copy-btn:hover {
+	background-color: #00cc6a;
+	border-color: #00cc6a;
+	transform: translateY(-1px);
+}
+
+.copy-btn.copied {
+	background-color: #0099ff;
+	border-color: #0099ff;
+	color: white;
+	transform: scale(0.95);
+}
+
+.copy-btn:active {
+	transform: scale(0.95);
+}
+
+/* Tooltip Styles */
+.tooltip {
+	position: relative;
+	display: inline-block;
+	margin-left: 1rem;
+}
+
+.tooltip-icon {
+	display: inline-block;
+	width: 1.5rem;
+	height: 1.5rem;
+	background-color: #00ff88;
+	color: #000;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 1.5rem;
+	font-size: 1rem;
+	font-weight: bold;
+	cursor: pointer;
+	font-family: 'Slabo 27px', serif;
+}
+
+.tooltip-icon:hover {
+	background-color: #00cc6a;
+}
+
+.tooltip-content {
+	visibility: hidden;
+	position: absolute;
+	top: 2rem;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #333;
+	color: white;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	font-size: 0.9rem;
+	line-height: 1.4;
+	white-space: nowrap;
+	z-index: 1000;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+	font-family: 'Slabo 27px', serif;
+}
+
+.tooltip-content::before {
+	content: "";
+	position: absolute;
+	top: -5px;
+	left: 50%;
+	transform: translateX(-50%);
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid #333;
+}
+
+.tooltip:hover .tooltip-content {
+	visibility: visible;
+}
+
+/* Note Input Styles */
+.note-input {
+	font-family: 'Courier New', monospace;
+	font-size: 1rem;
+	padding: 0.3rem 0.5rem;
+	border: 2px solid #444;
+	border-radius: 0.3rem;
+	width: 4rem;
+	text-align: center;
+	margin-left: 0.5rem;
+	background-color: #2a2a2a;
+	color: #e0e0e0;
+}
+
+.note-input:focus {
+	outline: none;
+	border-color: #00ff88;
+	box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.2);
 }
