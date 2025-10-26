@@ -39,11 +39,47 @@ table {
 	margin: 0 auto;
 }
 .row {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	overflow: visible;
-	margin: 1rem 0; /* Reduced from default spacing */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    margin: 1rem 0; /* Reduced from default spacing */
+}
+
+/* Transport bar (mobile-first, touch-friendly) */
+.transport-row {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: block;
+  padding: 0.75rem 1rem;
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+  margin-bottom: 1rem;
+}
+.transport-buttons { display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
+.transport-top-row { display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+.transport-middle-row { display: flex; align-items: center; justify-content: center; margin-top: 0.5rem; }
+.bpm-text-row { display: flex; align-items: center; justify-content: center; margin-top: 0.5rem; }
+.bpm-text-row .bpm-input, .transport-top-row .bpm-input { font-size: 1.6rem; width: 11rem; text-align: center; padding: 0.6rem 0.8rem; }
+
+/* Larger buttons in transport */
+.transport-top-row .copy-btn { font-size: 1.3rem; padding: 0.95rem 1.2rem; }
+.transport-middle-row .copy-btn { font-size: 1.2rem; padding: 0.85rem 1.1rem; }
+.transport-status { text-align: center; margin-top: 0.4rem; font-family: 'Slabo 27px', serif; font-size: 1.3rem; font-weight: 700; color: #ffeb3b; }
+.transport-bpm {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.transport-bpm label {
+  font-family: 'Slabo 27px', serif;
+  font-size: 1rem;
+}
+
+/* De-emphasize legacy big boxes when transport is present */
+.visually-suppressed {
+  display: none !important;
 }
 #staff {
 	flex-wrap: wrap;
@@ -234,8 +270,15 @@ table {
 }
 
 th.beat-highlight {
-	background-color: #ffff00 !important;
-	color: #000 !important;
+    background-color: #ffff00 !important;
+    color: #000 !important;
+}
+
+/* Highlight for current measure label (row header) during tapping */
+.sequencer-table td.measure-highlight {
+    background-color: #ffff00 !important;
+    color: #000 !important;
+    border-left: 2px solid #000 !important;
 }
 
 /* Rotation Controls */
@@ -279,75 +322,111 @@ th.beat-highlight {
 
 /* Strudel Pattern Styles */
 #strudel-pattern {
-	margin: 1rem auto; /* Reduced margin and center */
-	width: 100%;
-	max-width: 80rem;
-	display: inline-block; /* Center the pattern */
+    margin: 1rem auto; /* Reduced margin and center */
+    width: 100%;
+    max-width: 80rem;
+    display: inline-block; /* Center the pattern */
 }
 
 .strudel-header {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 1rem;
-	margin-bottom: 0.5rem; /* Reduced margin */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem; /* Reduced margin */
 }
 
-#strudel-pattern h3 {
-	font-family: 'Slabo 27px', serif;
-	font-size: 1.5rem;
-	color: #e0e0e0;
-	margin: 0; /* Remove margin, handled by flex container */
+/* Unified section titles for Strudel/Demo/Mix */
+.section-title {
+    width: 100%;
+    text-align: left;
+    margin: 0.75rem 0 0.25rem;
+    font-family: 'Slabo 27px', serif;
+    font-size: 1.4rem;
+    color: #e0e0e0;
 }
 
-.pattern-box {
-	background-color: #2a2a2a;
-	border: 2px solid #444;
-	border-radius: 0.5rem;
-	padding: 1rem;
-	margin: 1rem 0;
-	font-family: 'Courier New', monospace;
-	width: 100%; /* Match step sequencer width */
+/* Removed old pattern-box usage for textareas */
+
+.play-btn {
+    background-color: #0099ff;
+    color: #fff;
+    border: 2px solid #0099ff;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: 'Slabo 27px', serif;
+    transition: all 0.3s;
+    margin-left: 0.5rem;
 }
 
-.pattern-box pre {
-	margin: 0;
-	font-size: 1.2rem;
-	line-height: 1.6;
-	color: #e0e0e0;
-	white-space: pre-wrap;
-	word-wrap: break-word;
+.play-btn:hover {
+    background-color: #0077cc;
+    border-color: #0077cc;
+    transform: translateY(-1px);
+}
+
+.play-btn:active {
+    transform: scale(0.95);
 }
 
 .copy-btn {
-	background-color: #00ff88;
-	color: #000;
-	border: 2px solid #00ff88;
-	padding: 0.8rem 1.5rem;
+    background-color: #0099ff;
+    color: #fff;
+    border: 2px solid #0099ff;
+    padding: 0.6rem 1rem;
 	font-size: 1rem;
 	border-radius: 0.5rem;
 	cursor: pointer;
 	font-family: 'Slabo 27px', serif;
 	transition: all 0.3s;
-	margin-top: 1rem;
+	margin-top: 0.5rem;
 	font-weight: bold;
 }
 
 .copy-btn:hover {
-	background-color: #00cc6a;
-	border-color: #00cc6a;
+	background-color: #0077cc;
+	border-color: #0077cc;
 	transform: translateY(-1px);
 }
 
+.play-btn:disabled, .copy-btn:disabled {
+  background-color: #555 !important;
+  border-color: #555 !important;
+  color: #bbb !important;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Warning state (Tap BPM active -> Lock BPM) */
+.copy-btn.warn {
+  background-color: #ffeb3b !important;
+  border-color: #ffeb3b !important;
+  color: #000 !important;
+}
+
 .copy-btn.copied {
-	background-color: #0099ff;
-	border-color: #0099ff;
-	color: white;
-	transform: scale(0.95);
+	opacity: 0.9;
 }
 
 .copy-btn:active {
-	transform: scale(0.95);
+    transform: scale(0.95);
+}
+
+/* Strudel iframe hint */
+.strudel-hint {
+    margin-top: 0.25rem;
+    font-family: 'Slabo 27px', serif;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+.strudel-hint a {
+    color: #00aaff;
+    text-decoration: none;
+}
+.strudel-hint a:hover {
+    text-decoration: underline;
 }
 
 /* Tooltip Styles */
@@ -424,7 +503,83 @@ th.beat-highlight {
 }
 
 .note-input:focus {
-	outline: none;
-	border-color: #00ff88;
-	box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.2);
+    outline: none;
+    border-color: #00ff88;
+    box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.2);
 }
+
+/* BPM input field */
+.bpm-input {
+    width: 7rem;
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 2px solid #444;
+    border-radius: 0.3rem;
+    padding: 0.3rem 0.5rem;
+}
+
+/* Section labels and control rows */
+.section-label { display:none; }
+.controls-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+/* Push certain buttons to the right edge (e.g., Merge) */
+.controls-row .merge-btn {
+  margin-left: auto;
+}
+
+/* Large action buttons (transport) */
+.btn-large { font-size: inherit !important; padding: inherit !important; }
+.play-btn.active, .copy-btn.active { box-shadow: 0 0 0 3px rgba(0,153,255,0.3) inset; }
+
+/* Dark textarea styling for demo/mix */
+.pattern-text {
+    width: 100%;
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 2px solid #444;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 220px;
+}
+
+/* Slim box for BPM row */
+.box-slim {
+    height: auto !important;
+    padding: 0.75rem 1rem;
+    cursor: default;
+}
+
+/* Strudel iframe styling */
+.iframe-host { margin-top: 0.5rem; }
+.strudel-iframe { width: 100%; border: 0; }
+.strudel-iframe.demo { height: 220px; }
+.strudel-iframe.mix { height: 180px; }
+
+/* Dark textarea styling for demo/mix */
+.pattern-box textarea {
+    width: 100%;
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 2px solid #444;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    line-height: 1.5;
+    resize: vertical;
+}
+.section-inline {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.bpm-label { margin-right: 0.5rem; }
